@@ -59,6 +59,7 @@ html, body, #map {
 	font-variant: normal; 
 	font-weight: normal;
 	text-align: right;
+	color: #666;
 	border: #000 solid 1px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
