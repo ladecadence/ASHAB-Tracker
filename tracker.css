@@ -69,7 +69,7 @@ html, body, #map {
 	position: absolute;
 	text-align: right;
 	font-weight: bold;
-	bottom: 1%;
+	bottom: 0%;
 }
 
 .alt .a5000m {
@@ -115,7 +115,7 @@ html, body, #map {
 	position: absolute;
 	text-align: right;
 	font-weight: bold;
-	top: 1%;
+	bottom: 100%;
 }
 
 .alt .alt-ns1 {
