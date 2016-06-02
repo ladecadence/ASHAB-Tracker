@@ -1,0 +1,126 @@
+html, body, #map {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	z-index: 1;
+}
+
+.logo {
+	position: absolute;
+	top: 60%;
+	left: 50px;
+	z-index: 1000;
+}
+
+.olPopup {
+	border: #000 solid 1px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+}
+
+.olPopupContent {
+	font-family: Sans-Serif; 
+	font-size: 14px; 
+	font-style: normal; 
+	font-variant: normal; 
+	font-weight: normal;
+}
+
+#status {
+	position: absolute;
+	padding: 10px;
+	background: rgba(255,255,255,0.7);
+	top: 10%;
+	left: 50px;
+	z-index: 1000;
+	font-family: Sans-Serif; 
+	font-size: 14px; 
+	font-style: normal; 
+	font-variant: normal; 
+	font-weight: normal;
+	border: #000 solid 1px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+
+}
+
+.alt {
+	position: absolute;
+	padding: 10px;
+	background: rgba(255,255,255,0.7);
+	top: 10%;
+	right: 50px;
+	height: 70%;
+	width: 50px;
+	z-index: 1000;
+	font-family: Sans-Serif; 
+	font-size: 10px; 
+	font-style: normal; 
+	font-variant: normal; 
+	font-weight: normal;
+	text-align: right;
+	border: #000 solid 1px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+
+}
+
+.alt .a0m {
+	position: absolute;
+	text-align: right;
+	font-weight: bold;
+	bottom: 1%;
+}
+
+.alt .a5000m {
+	position: absolute;
+	text-align: right;
+	bottom: 12.5%;
+}
+.alt .a10000m {
+	position: absolute;
+	text-align: right;
+	font-weight: bold;
+	bottom: 25%;
+}
+.alt .a15000m {
+	position: absolute;
+	text-align: right;
+	bottom: 37.5%;
+}
+.alt .a20000m {
+	position: absolute;
+	text-align: right;
+	font-weight: bold;
+	bottom: 50%;
+}
+.alt .a25000m {
+	position: absolute;
+	text-align: right;
+	bottom: 62.5%;
+}
+.alt .a30000m {
+	position: absolute;
+	text-align: right;
+	font-weight: bold;
+	bottom: 75%;
+}
+
+.alt .a35000m {
+	position: absolute;
+	text-align: right;
+	bottom: 87.5%;
+}
+.alt .a40000m {
+	position: absolute;
+	text-align: right;
+	font-weight: bold;
+	top: 1%;
+}
+
+.alt .alt-ns1 {
+	position: absolute;
+	padding-left: 10px;
+	bottom: 0%;
+	z-index: 1000;
+}
