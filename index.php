@@ -1,4 +1,8 @@
- <!DOCTYPE HTML>
+<?php 
+	include("config.php");
+?>
+
+<!DOCTYPE HTML>
 <html>
   <head>
     <title>ASHAB NS1 Tracker</title>
@@ -15,6 +19,13 @@
 	var balloon_marker;
 	var telem_data;
 	
+
+	function pad (num, size) {
+		var s = num+"";
+		while (s.length < size) s = "0" + s;
+		return s;
+	}
+
 	// Creates the map and markers
 	function init() {
 		// get telemetry data
@@ -55,7 +66,7 @@
             	markers.addMarker(balloon_marker);	
 		
  
-		map.setCenter (lonLat, 10);
+		map.setCenter (lonLat, 12);
 
 		generate_status_content();
 		update_altimeter();
@@ -111,18 +122,32 @@
 	function update_altimeter() {
 		document.getElementById("alt-ns1").style.bottom = ((telem_data.alt * 100) / 40000).toString()+"%";
 	}
+	
+	function update_clock() {
+		var date = new Date();
+		document.getElementById("clock").innerHTML = "" +
+			"<strong><ins>TIME</ins></strong><br /><br />" +
+			pad(date.getHours(),2) + ":" +
+			pad(date.getMinutes(),2) + ":" +
+			pad(date.getSeconds(),2) + " L<br />" +
+			pad(date.getUTCHours(),2) + ":" +
+                        pad(date.getUTCMinutes(),2) + ":" +
+                        pad(date.getUTCSeconds(),2)+ " Z";
+	}
 
 	// reloads info each 30 seconds
-	var reload = setInterval(update, 10000);
+	var reload = setInterval(update, 20000);
+	var clock = setInterval(update_clock, 1000);	
 
     </script>
 
   </head>
   <body onload="init();">
     <div id="map"></div>
+    <div id="clock"></div>
     <div id="logo" class="logo">
 	<a href="http://ashab.space">
-    		<img src="img/ashab.png" alt="ASHAB" height="200px">
+    		<img src="img/ashab.png" alt="ASHAB" height="150px">
 	</a>
     </div>
     <div id="status">

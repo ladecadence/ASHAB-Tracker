@@ -1,4 +1,6 @@
 <?php 
+	include("config.php");
+
 	class TelemData {
 		public $date;
 		public $time;
@@ -16,10 +18,11 @@
 	// get last telemetry data
 	function get_data() {
 		global $telem_data;
+		global $config;
 
 		$line = '';
 
-		$f = fopen('telem-ns1.txt', 'r');
+		$f = fopen($config["telem_file"], 'r');
 		$cursor = -1;
 
 		fseek($f, $cursor, SEEK_END);
