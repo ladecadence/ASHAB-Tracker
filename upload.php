@@ -1,5 +1,7 @@
 <?php
 
+include("config.php");
+
 $username = null;
 $password = null;
 
@@ -38,13 +40,11 @@ if (is_null($username)) {
 			header('WWW-Authenticate: Basic realm="ASHAB"');
 	                header('HTTP/1.0 401 Unauthorized');
 	                echo 'You shall not pass'."\n";
-			echo $username."\n";
-			echo $passwords[$username];
         	        die();
 		} else {
 			echo "You can pass.\n";
 			$telem =  htmlspecialchars($_POST["telemetry"]);
-			$telem_file = fopen('telem-ns1.txt', 'a');
+			$telem_file = fopen($config["telem_file"], 'a');
 			fwrite($telem_file, $telem."\n");
 			fclose($telem_file);
 		}
