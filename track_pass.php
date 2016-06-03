@@ -1,5 +1,5 @@
 <?php
 $passwords = array(
-	'tracker' => 'PHP_CRYPT_HASH',
+	'tracker' => 'PUT HERE A PHP CRYPT HASH',
 );
 ?>
