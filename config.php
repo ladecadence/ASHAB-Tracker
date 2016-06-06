@@ -6,4 +6,3 @@
 		"get_data_url" => "http://ashab.space/tracker/get_ns1_data.php"
 	);
 ?>
-		
