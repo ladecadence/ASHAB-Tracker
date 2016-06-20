@@ -30,7 +30,7 @@
 	function init() {
 		// get telemetry data
 		var request = OpenLayers.Request.GET({
-			url: "http://ashab.space/tracker/get_ns1_data.php",
+			url: "<?php echo $config["get_data_url"]; ?>" ,
 			callback: create_map 
 		});
 	}
@@ -60,7 +60,7 @@
 		markers = new OpenLayers.Layer.Markers( "Markers" );
     		map.addLayer(markers);
 		
-		icon = new OpenLayers.Icon("http://ashab.space/tracker/img/icono-ns1.png", new OpenLayers.Size(29,32));
+		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(29,32));
 
             	balloon_marker = new OpenLayers.Marker(lonLat, icon);
             	markers.addMarker(balloon_marker);	
@@ -76,7 +76,7 @@
 	function update() {
 		// get telemetry data
 		var request = OpenLayers.Request.GET({
-			url: "http://ashab.space/tracker/get_ns1_data.php",
+			url: "<?php echo $config["get_data_url"]; ?>",
 			callback: update_map 
 		});
 	}
@@ -91,7 +91,7 @@
                                                 new OpenLayers.Projection("EPSG:4326"),
                                                 map.getProjectionObject()
                                                 );
-		icon = new OpenLayers.Icon("http://ashab.space/tracker/img/icono-ns1.png", new OpenLayers.Size(29,32));
+		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(29,32));
 
 		markers.removeMarker(balloon_marker);
             	balloon_marker = new OpenLayers.Marker(lonLat, icon);
@@ -115,7 +115,9 @@
 			"Baro: <strong>"+telem_data.baro+"</strong><br />"+
 			"Temp. Internal: <strong>"+telem_data.tin+"</strong><br />"+
 			"Temp. External: <strong>"+telem_data.tout+"</strong><br />"+
-			"Battery: <strong>"+telem_data.batt+"</strong>";
+			"Battery: <strong>"+telem_data.batt+"</strong><br />"+
+			"<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:"+ 
+			telem_data.lat+"+"+telem_data.lon+"\">"+"GMaps" + "</a>";
 		
 	}
 
@@ -147,7 +149,7 @@
     <div id="clock"></div>
     <div id="logo" class="logo">
 	<a href="http://ashab.space">
-    		<img src="img/ashab.png" alt="ASHAB" height="150px">
+    		<img src="<?php echo $config["logo_img"]; ?>" alt="ASHAB" height="150px">
 	</a>
     </div>
     <div id="status">
@@ -182,7 +184,7 @@
 		0 m
 	</div>
 	<div id="alt-ns1" class="alt-ns1">
-		<img src="http://ashab.space/tracker/img/icono-ns1.png" alt="ASHAB" >
+		<img src="<?php echo $config["payload_icon"]; ?>" alt="ASHAB" >
 	</div>
 
     </div>
