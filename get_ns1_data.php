@@ -59,6 +59,8 @@
 		$telem_data->tin = $telem[6];
 		$telem_data->tout = $telem[7];
 		$telem_data->baro = $telem[8];
+		$telem_data->hdg = $telem[9];
+		$telem_data->spd = $telem[10];
 		// fix coordinates
 		if ($telem_data->lat[strlen($telem_data->lat)-1] == 'S')
 			$telem_data->lat = substr("-".ltrim($telem_data->lat, "0"), 0 ,-1);

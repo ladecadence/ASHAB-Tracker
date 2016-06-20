@@ -1,36 +1,118 @@
-html, body, #map {
+html, body {
 	width: 100%;
 	height: 100%;
-	margin: 0;
+	margin: auto;
+	z-index: 1;
+	background: #333;
+	font-family: Sans-Serif; 
+	text-transform: uppercase;
+	font-weight: 300;
+	
+}
+
+a, a:visited, a:active {
+	text-decoration: none;
+	color: #000;
+	font-weight: 600;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+
+
+#content {
+	overflow: hidden;
+	height:90%;
+	width: 100%;
+}
+
+
+
+#left_column {
+	position: relative;
+	float: left;
+	width: 200px;
+	height: 100%;
+	background: #333;
+	box-shadow: 2px 0 6px 0 #000;
+	z-index: 1000;
+}
+
+
+
+#middle_column {
+	height: 100%;
+	background: #333;
+	overflow: hidden;
+	padding-bottom: 500em;
+	margin-bottom: -500em;
+}
+
+#map {
+	position: relative;
+	height: 100%;
+	width: 100%;
 	z-index: 1;
 }
 
-.logo {
-	position: absolute;
-	top: 60%;
-	left: 50px;
+#right_column {
+	background: #333;
+	position: relative;
+	float: right;
+	width: 200px;
+	height: 100%;
+	background: #eee;
+	overflow: hidden;
+	box-shadow: -2px 0 6px 0 #000;
 	z-index: 1000;
 }
 
-.olPopup {
-	border: #000 solid 1px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
+.logo {
+	background: #333;
+	margin-top: 0px;
 }
 
-.olPopupContent {
+.logo img {
+	margin-left: 50px;
+	margin-right: auto;
+}
+
+#clock {
+	padding: 20px;
+	background: #333;
+	color: #eee;
+	top: 20px;
+	z-index: 1000;
 	font-family: Sans-Serif; 
 	font-size: 14px; 
 	font-style: normal; 
 	font-variant: normal; 
 	font-weight: normal;
+	text-align: right;
+	height: 100%;
+}
+
+#clock span {
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: 300;
+	margin-top: 10px;
+}
+
+#clock h2 {
+	font-weight: 500;
+	font-size: 1.5em;
 }
 
 #status {
-	position: absolute;
-	padding: 10px;
-	background: rgba(255,255,255,0.7);
-	top: 10%;
+	height:100%;
+	padding: 20px;
+	padding-top: 5px;
+	background: #333;
+	color: #eee;
+	top: 150px;
 	left: 50px;
 	z-index: 1000;
 	font-family: Sans-Serif; 
@@ -38,19 +120,51 @@ html, body, #map {
 	font-style: normal; 
 	font-variant: normal; 
 	font-weight: normal;
-	border: #000 solid 1px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
 
 }
 
+#status span {
+	font-size: 11px;
+	text-transform: uppercase;
+	font-weight: 300;
+	line-height: 14px;
+}
+
+#status h2 {
+	font-weight: 500;
+	font-size: 1.5em;
+}
+
+#status a, a:visited, a:active {
+	color: #eee;
+}
+
+#footer {
+	clear: both;
+	width: 100%;
+	height: 50px;
+	font-family: Sans-Serif; 
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 300;
+	padding-left: 20px;
+	padding-top: 20px;
+	background: #eee;
+	border-top: 1px solid #999;
+	z-index: 2000;
+}
+	
+#footer a, a:visited, a:active {
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+}
+
 .alt {
-	position: absolute;
+	display: none;
 	padding: 10px;
-	background: rgba(255,255,255,0.7);
-	top: 10%;
-	right: 50px;
-	height: 70%;
+	background: #333;
+	height: 500px;
 	width: 50px;
 	z-index: 1000;
 	font-family: Sans-Serif; 
