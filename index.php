@@ -16,9 +16,29 @@
 	var lonLat;
 	var markers;
 	var icon;
+	var arrow_icon;
 	var balloon_marker;
+	var arrow_marker;
+	var arrow_marker_div;
 	var telem_data;
-	
+
+	function rotateAnimation(elem,degrees){
+		//var elem = document.getElementById(el);
+		if(navigator.userAgent.match("Chrome")){
+			elem.style.WebkitTransform = "rotate("+degrees+"deg)";
+		} else if(navigator.userAgent.match("Firefox")){
+			elem.style.MozTransform = "rotate("+degrees+"deg)";
+		} else if(navigator.userAgent.match("MSIE")){
+			elem.style.msTransform = "rotate("+degrees+"deg)";
+		} else if(navigator.userAgent.match("Opera")){
+			elem.style.OTransform = "rotate("+degrees+"deg)";
+		} else {
+			elem.style.transform = "rotate("+degrees+"deg)";
+		}
+		if(degrees > 359){
+			degrees = 1;
+		}
+	}	
 
 	function pad (num, size) {
 		var s = num+"";
@@ -61,9 +81,16 @@
     		map.addLayer(markers);
 		
 		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(29,32));
-
+		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
+		
+		arrow_marker_div = arrow_icon.imageDiv;
+		rotateAnimation(arrow_marker_div, 120);
+		
             	balloon_marker = new OpenLayers.Marker(lonLat, icon);
-            	markers.addMarker(balloon_marker);	
+		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
+            	
+		markers.addMarker(balloon_marker);	
+		markers.addMarker(arrow_marker);
 		
  
 		map.setCenter (lonLat, 12);
@@ -92,10 +119,20 @@
                                                 map.getProjectionObject()
                                                 );
 		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(27,30));
+		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
+
 
 		markers.removeMarker(balloon_marker);
+		markers.removeMarker(arrow_marker);
+
             	balloon_marker = new OpenLayers.Marker(lonLat, icon);
+		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
+
+		arrow_marker_div = arrow_icon.imageDiv;
+		rotateAnimation(arrow_marker_div, 120);
+
             	markers.addMarker(balloon_marker);	
+		markers.addMarker(arrow_marker);
 		
 		map.setCenter (lonLat);
 
