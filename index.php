@@ -237,7 +237,7 @@
   		</div>
  	 </div>
 	<div id="footer">
-		&copy;2016 David Pello & ASHAB - Asturias Hight Altitude Ballooning<br />
+		&copy;2016 David Pello & ASHAB - Asturias High Altitude Ballooning<br />
 		Source code at <a href="https://github.com/ladecadence/ASHAB-Tracker">GitHub</a><br />
 		<a href="http://ashab.space">http://ashab.space</a>
 	</div>
