@@ -9,7 +9,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="tracker.css" />
     <script src="http://openlayers.org/api/OpenLayers.js"></script>    
-   <script type="text/javascript">
+    <script src="res/Chart.js"></script>
+    <script type="text/javascript">
 	var map;
 	var options;
 	var layer;
@@ -48,9 +49,15 @@
 
 	// Creates the map and markers
 	function init() {
+		// configure options
+		Chart.defaults.global.elements.point.radius = 1;
+		Chart.defaults.global.title.fontColor = "#eee";
+		Chart.defaults.global.animation.duration = 0;
+		Chart.defaults.global.legend.display = false;
+		
 		// get telemetry data
 		var request = OpenLayers.Request.GET({
-			url: "<?php echo $config["get_data_url"]; ?>" ,
+			url: "<?php echo $config["get_data_url"]; ?>?last" ,
 			callback: create_map 
 		});
 	}
@@ -80,7 +87,7 @@
 		markers = new OpenLayers.Layer.Markers( "Markers" );
     		map.addLayer(markers);
 		
-		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(29,32));
+		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(27,30));
 		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
 		
 		arrow_marker_div = arrow_icon.imageDiv;
@@ -96,14 +103,14 @@
 		map.setCenter (lonLat, 12);
 
 		generate_status_content();
-		update_altimeter();
+		update_graphs();
   	}
 	
 	// updates the position of the capsule
 	function update() {
 		// get telemetry data
 		var request = OpenLayers.Request.GET({
-			url: "<?php echo $config["get_data_url"]; ?>",
+			url: "<?php echo $config["get_data_url"]; ?>?last",
 			callback: update_map 
 		});
 	}
@@ -137,7 +144,6 @@
 		map.setCenter (lonLat);
 
 		generate_status_content();
-		update_altimeter();
 	}
 	
 	// generates the status text
@@ -161,8 +167,91 @@
 		
 	}
 
-	function update_altimeter() {
-		document.getElementById("alt-ns1").style.bottom = ((telem_data.alt * 100) / 40000).toString()+"%";
+	// updates the graph
+	function update_graphs() {
+		// get telemetry data
+		var request = OpenLayers.Request.GET({
+			url: "<?php echo $config["get_data_url"]; ?>?alt",
+			callback: update_alt_chart 
+		});
+	}
+
+
+	function update_alt_chart(request) {
+		// get data
+		var obj = request.responseText;					
+		var alt_data = JSON.parse(obj);
+		var altitudes = [];
+		var labels = [];
+		for (var i in alt_data.rows) {
+			if (!isNaN(parseFloat(alt_data.rows[i].value)))
+			{
+				altitudes.push(parseFloat(alt_data.rows[i].value));
+				labels.push(i.toString());
+			}
+		}
+		console.log(altitudes);
+
+		// create graph
+		var ctx = document.getElementById("altChart");
+		
+		var altData = {
+			labels : labels,
+			datasets : [
+				{
+					label: "Altitude",
+					backgroundColor : "rgba(238,238,238,1)",
+					fill: true,
+					strokeColor : "#eee",
+					pointColor : "#eee",
+					pointStrokeColor : "#9DB86D",
+					lineTension : 0.4,
+					pointRadius : 0,
+					borderWidth : 1,
+					borderColor: "#eee",
+					data : altitudes
+				}
+			]
+		}
+		var altOptions = {
+			responsive: true,
+			scales: {
+				type: "linear",
+				xAxes: [{
+					display: true,
+					gridLines: {
+						display: false
+					},
+					ticks: {
+						fontSize: 8,
+						display: false
+					}
+				}],
+				yAxes: [{
+					display: true,
+					gridLines: {
+						display: false
+					},
+					ticks: {
+                                                fontSize: 8,
+						fontColor: "#ccc",
+						min: 0
+                                        }
+				}]				    	
+			}
+		};
+		
+		new Chart(ctx, {
+			type: 'line',
+			data: altData,
+			options: altOptions
+		});
+		
+		document.getElementById("lastAlt").innerHTML = "" + telem_data.alt + "m";
+		
+		
+
+
 	}
 	
 	function update_clock() {
@@ -181,6 +270,7 @@
 
 	// reloads info each 30 seconds
 	var reload = setInterval(update, 20000);
+	var reload_graph = setInterval(update_graphs, 20000);
 	var clock = setInterval(update_clock, 1000);	
 
     </script>
@@ -198,38 +288,10 @@
 				</a>
     			</div>
 			<div id="clock"></div>
-			<div id="alt" class="alt">
-				<div id="a35000m" class="a35000m">
-					35000 m
-				</div>
-
-				<div id="a30000m" class="a30000m">
-					30000 m
-				</div>
-				<div id="a25000m" class="a25000m">
-					25000 m
-				</div>
-
-				<div id="a20000m" class="a20000m">
-					20000 m
-				</div>
-				<div id="a15000m" class="a15000m">
-					15000 m
-				</div>
-
-				<div id="a10000m" class="a10000m">
-					10000 m
-				</div>
-				<div id="a5000m" class="a5000m">
-					5000 m
-				</div>
-
-				<div id="a0m" class="a0m">
-					0 m
-				</div>
-				<div id="alt-ns1" class="alt-ns1">
-					<img src="<?php echo $config["payload_icon"]; ?>" alt="ASHAB" >
-				</div>
+			<div id="alt-chart">
+				<h2> ALTITUDE </h2>
+				<span id="lastAlt"></span>
+				<canvas id="altChart" width="150px" height="150px"></canvas>
 			</div>
 		</div>
 		<div id="middle_column">
