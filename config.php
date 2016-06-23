@@ -5,6 +5,8 @@
 		"payload_icon" => "img/icono-ns1.png",
 		"arrow_icon" => "img/heading-arrow.png",
 		"get_data_url" => "http://ashab.space/tracker/get-couchdb-data.php",
+		"couchdb_host" => "localhost",
+		"couchdb_port" => 5984,
 		"database" => "nstest"
 	);
 ?>

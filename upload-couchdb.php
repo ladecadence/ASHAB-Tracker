@@ -1,6 +1,7 @@
 <?php
 
 include("config.php");
+include("couchdb.php");
 
 class TelemData {
 	public $date;
@@ -14,47 +15,6 @@ class TelemData {
 	public $batt;
 }
 
-class CouchSimple {
-	function CouchSimple($options) {
-		foreach($options AS $key => $value) {
-			$this->$key = $value;
-		}
-	} 
-
-	function send($method, $url, $post_data = NULL) {
-		$s = fsockopen($this->host, $this->port, $errno, $errstr); 
-		if(!$s) {
-			echo "$errno: $errstr\n"; 
-			return false;
-		} 
-
-		$request = "$method $url HTTP/1.0\r\nHost: $this->host\r\n"; 
-
-		if ($this->user) {
-			$request .= "Authorization: Basic ".base64_encode("$this->user:$this->pass")."\r\n"; 
-		}
-
-		if($post_data) {
-			$request .= "Content-Length: ".strlen($post_data)."\r\n"; 
-			$request .= "Content-Type: application/json\r\n\r\n";
-			$request .= "$post_data\r\n";
-		} 
-		else {
-			$request .= "\r\n";
-		}
-
-		fwrite($s, $request); 
-		$response = ""; 
-
-		while(!feof($s)) {
-			$response .= fgets($s);
-		}
-
-		list($this->headers, $this->body) = explode("\r\n\r\n", $response); 
-		return $this->body;
-	}
-}
-
 
 $username = null;
 $password = null;
@@ -64,7 +24,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 	$username = $_SERVER['PHP_AUTH_USER'];
 	$password = $_SERVER['PHP_AUTH_PW'];
 
-	// most other servers
+// most other servers
 } elseif (isset($_SERVER['HTTP_AUTHORIZATION'])) {
 
 	if (strpos(strtolower($_SERVER['HTTP_AUTHORIZATION']),'basic')===0)
@@ -72,6 +32,7 @@ if (isset($_SERVER['PHP_AUTH_USER'])) {
 
 }
 
+// no username
 if (is_null($username)) {
 
 	header('WWW-Authenticate: Basic realm="ASHAB"');
@@ -97,8 +58,11 @@ if (is_null($username)) {
         	        die();
 		} else {
 			echo "You can pass.\n";
+
+			// get headers
 			$telem_header =  htmlspecialchars($_POST["telemetry"]);
 			$database_header = htmlspecialchars($_POST["database"]);			
+			
 			// get data
 			$telem_data = new TelemData();
 			$telem = explode(";", $telem_header);
@@ -113,24 +77,15 @@ if (is_null($username)) {
 			$telem_data->baro = $telem[8];
 			$telem_data->hdg = $telem[9];
 			$telem_data->spd = $telem[10];
-			// fix coordinates
-			//if ($telem_data->lat[strlen($telem_data->lat)-1] == 'S')
-			//	$telem_data->lat = substr("-".ltrim($telem_data->lat, "0"), 0 ,-1);
-			//else
-			//	$telem_data->lat = substr(ltrim($telem_data->lat, "0"), 0, -1);
-			//if ($telem_data->lon[strlen($telem_data->lon)-1] == 'W')
-			//	$telem_data->lon = substr("-".ltrim($telem_data->lon, "0"), 0, -1);
-			//else
-			//	$telem_data->lon = substr(ltrim($telem_data->lon, "0"), 0, -1);
-
+			
 			// insert data in couchdb
-			$couchdb_options['host'] = "localhost"; 
-			$couchdb_options['port'] = 5984;
+			$couchdb_options['host'] = $config["couchdb_host"]; 
+			$couchdb_options['port'] = $config["couchdb_port"];
 
 			$couch = new CouchSimple($couchdb_options); // See if we can make a connection
-			// Try to create a new database 
+			// try to create a new database 
 			$resp = $couch->send("PUT", $database_header);
-			// Insert data
+			// insert data
 			$microtime_list = explode(" ", microtime());
 			$microseconds_float = $microtime_list[0];
 			$microseconds_list = explode(".", $microseconds_float);
