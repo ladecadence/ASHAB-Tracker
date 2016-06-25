@@ -3,6 +3,8 @@
 include("config.php");
 include("couchdb.php");
 
+$views = '{"language":"javascript","views":{"data_ids":{"map":"function(doc) {\n  if (!isNaN(doc._id))\n    emit(doc._id, null);\n}"},"alt":{"map":"function(doc) {\n  if (!isNaN(doc._id))\n    emit(doc._id, doc.alt);\n}"},"all_data":{"map":"function(doc) {\n  if (!isNaN(doc._id))\n    emit(doc._id, {date: doc.date, time: doc.time, lat: doc.lat, \n         lon: doc.lon, alt: doc.alt, baro: doc.baro, tin: doc.tin,\n         tout: doc.tout, batt: doc.batt, hdg: doc.hdg,\n         spd: doc.spd });\n}"},"tout":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.tout);\n  }\n}"},"tin":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.tin);\n  }\n}"},"baro":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.baro);\n  }\n}"},"batt":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.batt);\n  }\n}"},"lat":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.lat);\n  }\n}"},"lon":{"map":"function(doc) {\n  if (!isNaN(doc._id)) {\n    emit(doc._id, doc.lon);\n  }\n}"}}}';
+
 class TelemData {
 	public $date;
 	public $time;
@@ -83,8 +85,19 @@ if (is_null($username)) {
 			$couchdb_options['port'] = $config["couchdb_port"];
 
 			$couch = new CouchSimple($couchdb_options); // See if we can make a connection
-			// try to create a new database 
-			$resp = $couch->send("PUT", $database_header);
+			
+			// check if database exists
+			$resp = $couch->send("GET", "/".$database_header);
+			$resp = json_decode($resp);
+			// if error, create db
+			if ($resp->{'error'} == "not_found") {
+				// try to create a new database 
+				$resp = $couch->send("PUT", "/".$database_header);
+				// insert views
+				$resp = $couch->send("PUT", "/".$database_header."/_design/get", $views);
+			}
+			
+
 			// insert data
 			$microtime_list = explode(" ", microtime());
 			$microseconds_float = $microtime_list[0];

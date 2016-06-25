@@ -91,7 +91,7 @@
 		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
 		
 		arrow_marker_div = arrow_icon.imageDiv;
-		rotateAnimation(arrow_marker_div, 120);
+		rotateAnimation(arrow_marker_div, telem_data.hdg);
 		
             	balloon_marker = new OpenLayers.Marker(lonLat, icon);
 		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
@@ -136,7 +136,7 @@
 		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
 
 		arrow_marker_div = arrow_icon.imageDiv;
-		rotateAnimation(arrow_marker_div, 120);
+		rotateAnimation(arrow_marker_div, telem_data.hdg);
 
             	markers.addMarker(balloon_marker);	
 		markers.addMarker(arrow_marker);
