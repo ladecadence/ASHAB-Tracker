@@ -144,12 +144,13 @@
 		map.setCenter (lonLat);
 
 		generate_status_content();
+		update_graphs();
 	}
 	
 	// generates the status text
 	function generate_status_content() {
 		document.getElementById("status").innerHTML = "" +
-			"<h2>NS1 STATUS</h2>" +
+			"<h2>NSX STATUS</h2>" +
 			"<span>DATE:</span><br /> <strong>"+telem_data.date+"</strong><br />"+
 			"<span>TIME:</span><br /> <strong>"+telem_data.time+"</strong><br />"+
 			"<span>LATITUDE:</span><br /> <strong>"+telem_data.lat+"</strong><br />"+

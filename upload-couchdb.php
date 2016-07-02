@@ -15,6 +15,8 @@ class TelemData {
 	public $tin;
 	public $tout;
 	public $batt;
+	public $sats;
+	public $a_rate;
 }
 
 
@@ -79,6 +81,8 @@ if (is_null($username)) {
 			$telem_data->baro = $telem[8];
 			$telem_data->hdg = $telem[9];
 			$telem_data->spd = $telem[10];
+			$telem_data->sats = $telem[11];
+			$telem_data->a_rate = $telem[12];
 			
 			// insert data in couchdb
 			$couchdb_options['host'] = $config["couchdb_host"]; 
