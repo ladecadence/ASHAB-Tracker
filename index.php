@@ -162,6 +162,7 @@
 			"<span>BATTERY:</span><br /> <strong>"+telem_data.batt+" V</strong><br />"+
 			"<span>HEADING:</span><br /> <strong>"+telem_data.hdg+" º</strong><br />" +
 			"<span>SPEED:</span><br /> <strong>"+telem_data.spd+" kn</strong><br />" +
+			"<span>ASC. RATE:</span><br /> <strong>"+telem_data.a_rate+" m/s</strong><br />" +
 			"<br />" + "<span>Locate in google maps</span><br />" + 
 			"<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:"+ 
 			telem_data.lat+"+"+telem_data.lon+"\">"+"LINK" + "</a>";
