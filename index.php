@@ -90,12 +90,23 @@
 		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(27,30));
 		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
 		
+		if (telem_data.a_rate < -1) {
+			ascent_descent_icon = new OpenLayers.Icon("<?php echo $config["parachute_icon"]; ?>", 
+						new OpenLayers.Size(220,220));
+		}
+		else {
+			ascent_descent_icon = new OpenLayers.Icon("<?php echo $config["balloon_icon"]; ?>", 
+                                                new OpenLayers.Size(220,220));
+		}
+		
 		arrow_marker_div = arrow_icon.imageDiv;
 		rotateAnimation(arrow_marker_div, telem_data.hdg);
 		
-            	balloon_marker = new OpenLayers.Marker(lonLat, icon);
+            	payload_marker = new OpenLayers.Marker(lonLat, icon);
 		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
-            	
+        	balloon_marker = new OpenLayers.Marker(lonLat, ascent_descent_icon);    
+		
+		markers.addMarker(payload_marker);	
 		markers.addMarker(balloon_marker);	
 		markers.addMarker(arrow_marker);
 		
@@ -128,16 +139,27 @@
 		icon = new OpenLayers.Icon("<?php echo $config["payload_icon"]; ?>", new OpenLayers.Size(27,30));
 		arrow_icon = new OpenLayers.Icon("<?php echo $config["arrow_icon"]; ?>", new OpenLayers.Size(82,82));
 
-
+		if (telem_data.a_rate < -1) {
+			ascent_descent_icon = new OpenLayers.Icon("<?php echo $config["parachute_icon"]; ?>", 
+						new OpenLayers.Size(220,220));
+		}
+		else {
+			ascent_descent_icon = new OpenLayers.Icon("<?php echo $config["balloon_icon"]; ?>", 
+                                                new OpenLayers.Size(220,220));
+		}
+		
 		markers.removeMarker(balloon_marker);
 		markers.removeMarker(arrow_marker);
+		markers.removeMarker(payload_marker);
 
-            	balloon_marker = new OpenLayers.Marker(lonLat, icon);
+            	payload_marker = new OpenLayers.Marker(lonLat, icon);
 		arrow_marker = new OpenLayers.Marker(lonLat, arrow_icon);
+        	balloon_marker = new OpenLayers.Marker(lonLat, ascent_descent_icon);    
 
 		arrow_marker_div = arrow_icon.imageDiv;
 		rotateAnimation(arrow_marker_div, telem_data.hdg);
 
+		markers.addMarker(payload_marker);	
             	markers.addMarker(balloon_marker);	
 		markers.addMarker(arrow_marker);
 		

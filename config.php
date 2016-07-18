@@ -4,6 +4,8 @@
 		"logo_img" => "img/ashab.png",
 		"payload_icon" => "img/icono-ns1.png",
 		"arrow_icon" => "img/heading-arrow.png",
+		"parachute_icon" => "img/parachute-icon.png",
+		"balloon_icon" => "img/balloon-icon.png",
 		"get_data_url" => "http://ashab.space/tracker/get-couchdb-data.php",
 		"couchdb_host" => "localhost",
 		"couchdb_port" => 5984,
