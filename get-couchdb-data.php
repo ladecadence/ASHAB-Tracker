@@ -17,12 +17,12 @@ if (isset($_GET['id']))
 elseif (isset($_GET['alt'])) 
 {
 	// get alt data
-	$resp = $couch->send("GET", "/".$config["database"]."/_view/get/alt");
+	$resp = $couch->send("GET", "/".$config["database"]."/_design/get/_view/alt");
         echo $resp;
 }
 elseif (isset($_GET['last']))
 {
-	$resp = $couch->send("GET", "/".$config["database"]."/_view/get/data_ids?count=1&descending=true");
+	$resp = $couch->send("GET", "/".$config["database"]."/_design/get/_view/data_ids?limit=1&descending=true");
 	$json = json_decode($resp);
 
 	$last_id = $json->{'rows'}[0]->{'id'};
@@ -46,7 +46,7 @@ elseif (isset($_GET['last']))
 else
 {
 	// get all data
-	$resp = $couch->send("GET", "/".$config["database"]."/_view/get/all_data");
+	$resp = $couch->send("GET", "/".$config["database"]."/_design/get/_view/all_data");
 	echo $resp;
 }
 
