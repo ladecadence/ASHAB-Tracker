@@ -205,14 +205,19 @@
 		// get data
 		var obj = request.responseText;					
 		var alt_data = JSON.parse(obj);
+		// ok, we should have an array
 		var altitudes = [];
 		var labels = [];
-		for (var i in alt_data.rows) {
-			if (!isNaN(parseFloat(alt_data.rows[i].value)))
-			{
-				altitudes.push(parseFloat(alt_data.rows[i].value));
-				labels.push(i.toString());
-			}
+		//for (var i in alt_data.rows) {
+		//	if (!isNaN(parseFloat(alt_data.rows[i].value)))
+		//	{
+		//		altitudes.push(parseFloat(alt_data.rows[i].value));
+		//		labels.push(i.toString());
+		//	}
+		//}
+		for (i=0; i<alt_data.length; i++) {
+			altitudes.push(parseFloat(alt_data[i]));
+			labels.push(i.toString());
 		}
 		console.log(altitudes);
 

@@ -6,9 +6,12 @@
 		"arrow_icon" => "img/heading-arrow.png",
 		"parachute_icon" => "img/parachute-icon.png",
 		"balloon_icon" => "img/balloon-icon.png",
-		"get_data_url" => "http://ashab.space/tracker/get-couchdb-data.php",
+		"get_data_url" => "http://ashab.space/tracker/get-mongodb-data.php",
 		"couchdb_host" => "localhost",
 		"couchdb_port" => 5984,
-		"database" => "nstest"
+		"database" => "nstest",
+		"mongo_host" => "localhost",
+		"mongo_db" => "ashab-tracker",
+		"mongo-collection" => "data"
 	);
 ?>
