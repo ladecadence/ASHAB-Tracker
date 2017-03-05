@@ -1,3 +1,3 @@
 <?php
-	echo crypt($argv[1])."\n";
+	echo password_hash($argv[1], PASSWORD_DEFAULT)."\n";
 ?>
