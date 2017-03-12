@@ -105,6 +105,34 @@ a:hover {
 #clock h2 {
 	font-weight: 500;
 	font-size: 1.5em;
+	margin-bottom: -10px;
+}
+
+#ssdv {
+	padding-top: 0px;
+	background: #333;
+	color: #eee;
+	top: 20px;
+	z-index: 1000;
+	font-family: Sans-Serif; 
+	font-size: 14px; 
+	font-style: normal; 
+	font-variant: normal; 
+	font-weight: normal;
+	text-align: left;
+	//height: 100%;
+}
+
+#ssdv h2 {
+	font-weight: 500;
+	font-size: 1.5em;
+	margin-bottom: -10px;
+}
+
+#ssdv img {
+	height: 120px;
+	margin-top: 2px;
+	margin-left: -2px;
 }
 
 #status {
@@ -117,7 +145,7 @@ a:hover {
 	left: 50px;
 	z-index: 1000;
 	font-family: Sans-Serif; 
-	font-size: 14px; 
+	font-size: 12px; 
 	font-style: normal; 
 	font-variant: normal; 
 	font-weight: normal;
@@ -142,8 +170,9 @@ a:hover {
 	color: #eee;
 }
 
+
 #alt-chart {
-	height: 160px;
+	height: 130px;
 	background: #333;
         color: #eee;
 	text-align: right;
@@ -162,7 +191,7 @@ a:hover {
 
 #alt-chart h2 {
 	font-weight: 500;
-	font-size: 1.5em;
+	font-size: 1.2em;
 	margin-bottom: -10px;
 }
 
@@ -171,7 +200,7 @@ a:hover {
 	background: #333;
 	color: #eee;
 	width: 180px;
-	height: 150px;
+	height: 120px;
 }
 
 #footer {

@@ -12,6 +12,7 @@
 		"database" => "nstest",
 		"mongo_host" => "localhost",
 		"mongo_db" => "ashab-tracker",
-		"mongo-collection" => "data"
+		"mongo-collection" => "data",
+		"ssdv_dir" => "ssdv/"
 	);
 ?>

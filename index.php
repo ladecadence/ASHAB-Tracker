@@ -8,6 +8,8 @@
     <title>ASHAB NS1 Tracker</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="tracker.css" />
+    <link href="res/lightbox.css" rel="stylesheet">
+    <script src="res/lightbox-plus-jquery.min.js"></script>
     <script src="http://openlayers.org/api/OpenLayers.js"></script>    
     <script src="res/Chart.js"></script>
     <script type="text/javascript">
@@ -115,6 +117,7 @@
 
 		generate_status_content();
 		update_graphs();
+		update_ssdv();
   	}
 	
 	// updates the position of the capsule
@@ -167,6 +170,7 @@
 
 		generate_status_content();
 		update_graphs();
+		update_ssdv();
 	}
 	
 	// generates the status text
@@ -185,6 +189,7 @@
 			"<span>HEADING:</span><br /> <strong>"+telem_data.hdg+" º</strong><br />" +
 			"<span>SPEED:</span><br /> <strong>"+telem_data.spd+" kn</strong><br />" +
 			"<span>ASC. RATE:</span><br /> <strong>"+telem_data.a_rate+" m/s</strong><br />" +
+			"<div id=\"ssdv\"></div>" +
 			"<br />" + "<span>Locate in google maps</span><br />" + 
 			"<a href=\"http://maps.google.com/maps?z=12&t=m&q=loc:"+ 
 			telem_data.lat+"+"+telem_data.lon+"\">"+"LINK" + "</a>";
@@ -297,6 +302,14 @@
                         pad(date.getUTCSeconds(),2)+ "</strong>";
 	}
 
+	function update_ssdv() {
+		document.getElementById("ssdv").innerHTML = "" +
+			"<span>LAST IMAGE:</span><br />" +
+			"<a href='ssdv/last.jpg?"+ new Date().getTime() +"' data-lightbox='ssdv-1' data-title='Last SSDV Image'>"+
+			"<img class='ssdv' src='ssdv/last.jpg?" + new Date().getTime() + "'/>" + 
+			"</a>";
+	}
+
 	// reloads info each 30 seconds
 	var reload = setInterval(update, 20000);
 	var reload_graph = setInterval(update_graphs, 20000);
@@ -332,5 +345,6 @@
 		Source code at <a href="https://github.com/ladecadence/ASHAB-Tracker">GitHub</a><br />
 		<a href="http://ashab.space">http://ashab.space</a>
 	</div>
+
  </body>
 </html>
